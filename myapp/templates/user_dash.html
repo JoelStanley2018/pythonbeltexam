@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" />
+    
+  <style>
+
+
+*{
+    font-family: 'Roboto Slab', serif;
+    /* outline: 1px solid green; */
+    background:#EB3E;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    box-sizing: border-box;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+   
+
+}
+
+.header{
+            width:100%;
+            background-color:#21BEDA ;
+            color:#013859;
+            padding:20px;
+            width:100%;
+            text-align: center;
+        }
+
+#users {
+    
+    border-collapse: collapse;
+    width: 80%;
+    }
+
+table{
+    margin: 0 auto;
+}
+
+#users td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#users tr:nth-child(even){background-color: #f2f2f2;}
+
+users tr:hover {background-color: #ddd;}
+
+#users th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    text-align: left;
+    background-color: #EB3E4A;
+    color: white;
+}
+
+.header{
+    text-align: center;
+}
+
+#new_user{
+    text-decoration: none;
+}
+
+#new_user a{
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    font-size:20px;
+    padding-left: 20px;
+    margin-left:20px;
+}
+h1, h2, h3, h4, h5, h6{
+    text-align: center;
+    color:#013859;
+}
+
+
+
+</style>
+
+<body>
+    <h1 class="header">Displaying Users</h1>
+
+    <a href="/user_dash">Home</a>
+    <a href="/create_trip">New Trip</a>
+    <a href="/logout">Logout</a>
+
+    <h2>Welcome Back, {{request.session.username}}</h2>
+    <!--FAVORITE MOVIES-->
+    <h2>Your Trip Schedules</h2>
+
+    <table id="users">
+        <tr>
+            <th>Destination</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Trip Name</th>
+            
+        </tr>
+
+        <!-- Loop through and add TR dependent on users-->
+        {% for i in user_trips%}
+        <tr>
+            <td><a href="/show/{{i.trip.id}}">{{i.trip.destination}}</a></td>
+            <td>{{i.trip.startdate}}</td>
+            <td>{{i.trip.enddate}}</td>
+            <td>{{i.trip.tripname}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <br>
+    <!--ALL TRIPS-->
+    <!-- <h2>All Trips</h2> -->
+
+    <!--MY TRIPS-->
+    <h2>Other Trips!</h2>
+
+    <table id="users">
+        <tr>
+            <th>Destination</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Added By</th>
+            <th></th>
+        </tr>
+
+        <!-- Loop through and add TR dependent on users-->
+        {% for i in all_trips%}
+        <tr>
+            <td><a href="/show/{{i.id}}">{{i.destination}}</a></td>
+            <td>{{i.startdate}}</td>
+            <td>{{i.enddate}}</td>
+            <td>{{i.added_by.username}}</td>
+            <td>
+                <a href="/join/{{i.id}}">Join</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>
